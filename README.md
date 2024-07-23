@@ -10,3 +10,4 @@ Repositório dedicado ao desenvolvimento do projeto de Sistema de Banco de Dados
 - [MER](https://github.com/SBD1/2024.1-Dark-Souls-Prepare-to-Die/blob/main/docs/modelagem/mer/mer.md)
 - [Mapeamento](https://github.com/SBD1/2024.1-Dark-Souls-Prepare-to-Die/blob/main/docs/modelagem/mapeamento/mapeamento.md)
 - [Dicionário de Dados](https://github.com/SBD1/2024.1-Dark-Souls-Prepare-to-Die/blob/main/docs/modelagem/dd/dd.md)
+- [Apresentação Módulo 1](https://youtu.be/sbChfO17grQ)
