@@ -1,256 +1,297 @@
-# Entidades e Relacionamentos
+# Modelo Entidade-Relacionamento (MER)
 
 ## Entidades e Atributos
 
-### Creature
+## Personagem
+- **id** (PK)
+- nome
+- tipo
+- hp_total
+- stamina_total
+- poise_resistance
 
-- **Atributos**:
-  - id (PK)
-  - creature_name
-  - creature_type
-  - creature_hp
-  - creature_stamina
-  - creature_level
-  - poise_resistance
+## PC
+- **id** (PK)
+- personagem_id (FK) - Referência a Personagem(id)
+- class_id (FK) - Referência a Class(id)
+- gift
+- vitality
+- attunement
+- endurance
+- strength
+- dexterity
+- intelligence
+- faith
+- humanity
+- equip_load
+- attunement_slot
+- position (FK) - Referência a RegionGraphNode(position)
+- pc_level
+- hp_atual
+- stamina_atual
 
-### PC
+## NPC
+- **id** (PK)
+- personagem_id (FK) - Referência a Personagem(id)
+- weakness
+- resistance
+- tipo
+- hp
+- respawn
+- position (FK) - Referência a RegionGraphNode(position)
+- hp_atual
+- stamina_atual
 
-- **Atributos**:
-  - id (PK)
-  - id_creature (FK)
-  - class
-  - gift
-  - pc_vitality
-  - pc_attunement
-  - pc_endurance
-  - pc_strength
-  - pc_dexterity
-  - pc_intelligence
-  - pc_faith
-  - pc_humanity
-  - pc_equip_load
-  - pc_attunement_slot
+## Chest
+- **id** (PK)
+- item_id (FK) - Referência a Item(id)
+- personagem_id (FK) - Referência a Personagem(id)
+- position (FK) - Referência a RegionGraphNode(position)
 
-### NPC
+## Region
+- **id** (PK)
+- nome
+- description
 
-- **Atributos**:
-  - id (PK)
-  - id_creature (FK)
-  - npc_weakness
-  - npc_resistance
-  - npc_type
-  - npc_hp
-  - respawn
+## RegionGraphNode
+- **position** (PK)
+- region_description
+- region_id (FK) - Referência a Region(id)
 
-### Region
+## RegionGraphEdge
+- **edge** (PK)
+- origin_node (FK) - Referência a RegionGraphNode(position)
+- destination_node (FK) - Referência a RegionGraphNode(position)
 
-- **Atributos**:
-  - id (PK)
-  - region_name
-  - region_description
+## Item
+- **id** (PK)
+- nome
+- equip
+- tipo
+- soul_valor
+- can_sell
 
-### RegionCoordinate
+## Armor
+- **id** (PK)
+- item_id (FK) - Referência a Item(id)
+- equipped
+- tipo
+- defense_valor
+- defense_tipo
+- inventory_item_id (FK) - Referência a InventoryItem(id)
 
-- **Atributos**:
-  - id (PK)
-  - region_x
-  - region_y
-  - region_description
-  - region_id (FK)
+## Weapon
+- **id** (PK)
+- item_id (FK) - Referência a Item(id)
+- damage
+- attack_recovery
+- poise
+- stamina_cost
+- attack_tipo
+- attack_speed
+- weapon_tipo
+- scaling
+- upgrade_level
+- upgrade_status
+- equipped
+- inventory_item_id (FK) - Referência a InventoryItem(id)
 
-### RegionLink
+## Consumable
+- **id** (PK)
+- item_id (FK) - Referência a Item(id)
+- effect
+- duration
+- valor
+- inventory_item_id (FK) - Referência a InventoryItem(id)
 
-- **Atributos**:
-  - id (PK)
-  - id_origin (FK)
-  - id_destination (FK)
-  - link_type
+## Ore
+- **id** (PK)
+- item_id (FK) - Referência a Item(id)
+- upgrade
+- tipo
+- inventory_item_id (FK) - Referência a InventoryItem(id)
 
-### Item
+## Magic
+- **id** (PK)
+- item_id (FK) - Referência a Item(id)
+- tipo
+- stamina_cost
+- quantity
+- equipped
+- inventory_item_id (FK) - Referência a InventoryItem(id)
 
-- **Atributos**:
-  - id (PK)
-  - item_name
-  - equip
-  - type
+## MagicEffect
+- **id** (PK)
+- magic_id (FK) - Referência a Magic(id)
+- tipo
 
-### UpgradeType
+## AttributeEffect
+- **id** (PK)
+- magic_effect_id (FK) - Referência a MagicEffect(id)
+- nome
+- valor
+- duration
 
-- **Atributos**:
-  - id (PK)
-  - id_item (FK)
-  - upgrade_type_name
+## Ring
+- **id** (PK)
+- item_id (FK) - Referência a Item(id)
+- is_broken
+- equipped
+- inventory_item_id (FK) - Referência a InventoryItem(id)
 
-### Armor
+## RingEffect
+- **id** (PK)
+- ring_id (FK) - Referência a Ring(id)
+- attribute
+- valor
 
-- **Atributos**:
-  - id (PK)
-  - id_item (FK)
-  - equipped
-  - armor_type
-  - armor_defense
+## Ember
+- **id** (PK)
+- item_id (FK) - Referência a Item(id)
+- blacksmith
+- inventory_item_id (FK) - Referência a InventoryItem(id)
 
-### Weapon
+## Projectile
+- **id** (PK)
+- item_id (FK) - Referência a Item(id)
+- tipo
+- damage
+- effect
+- inventory_item_id (FK) - Referência a InventoryItem(id)
 
-- **Atributos**:
-  - id (PK)
-  - id_item (FK)
-  - weapon_damage
-  - recovery
-  - weapon_poise
-  - stamina_cost
-  - attack_type
-  - attack_speed
-  - weapon_type
-  - scaling
-  - upgrade_level
-  - upgrade_status
-  - equipped
+## KeyItem
+- **id** (PK)
+- item_id (FK) - Referência a Item(id)
+- is_used
+- inventory_item_id (FK) - Referência a InventoryItem(id)
 
-### Magic
+## KeyBonfireItem
+- **id** (PK)
+- item_id (FK) - Referência a Item(id)
+- active
+- inventory_item_id (FK) - Referência a InventoryItem(id)
 
-- **Atributos**:
-  - id (PK)
-  - id_item (FK)
-  - magic_type
-  - stamina_cost
-  - quantity
-  - equipped
+## Soul
+- **id** (PK)
+- item_id (FK) - Referência a Item(id)
+- inventory_item_id (FK) - Referência a InventoryItem(id)
 
-### Magic_Effect
+## SoulBoss
+- **id** (PK)
+- soul_id (FK) - Referência a Soul(id)
+- boss
 
-- **Atributos**:
-  - id (PK)
-  - id_magic (FK)
-  - effect_type
+## InventoryItem
+- **id** (PK)
+- inventory_id (FK) - Referência a Inventory(id)
+- item_instance_id
+- item_tipo
+- quantity
+- UNIQUE (inventory_id, item_instance_id, item_tipo)
 
-### AttributeEffect
+## Inventory
+- **id** (PK)
+- personagem_id (FK) - Referência a Personagem(id)
 
-- **Atributos**:
-  - id (PK)
-  - id_magic_effect (FK)
-  - attribute
-  - value
-  - duration
+## Class
+- **id** (PK)
+- nome
+- base_level
+- base_vit
+- base_dex
+- base_att
+- base_end
+- base_str
+- base_int
+- base_fai
 
-### Consumable
+## EquipmentRequirement
+- item_id (FK) - Referência a Item(id)
+- min_value
+- stat_tipo
+- PRIMARY KEY (item_id, stat_tipo)
 
-- **Atributos**:
-  - id (PK)
-  - id_item (FK)
-  - consumable_effect
-  - duration
-  - value
+## Quest
+- **id** (PK)
+- personagem_id (FK) - Referência a Personagem(id)
+- nome
 
-### Ore
+## QuestInstance
+- **id** (PK)
+- personagem_id (FK) - Referência a Personagem(id)
+- quest_id (FK) - Referência a Quest(id)
+- quest_state
+- count
+- dialogue
 
-- **Atributos**:
-  - id (PK)
-  - id_item (FK)
-  - ore_upgrade
-  - ore_type
+## Bonfire
+- **id** (PK)
+- kindle_level
+- bonfire_active
+- warp_ok
+- bonfire_reset_status
+- region_graph_node_position (FK) - Referência a RegionGraphNode(position)
 
-### Ring
-
-- **Atributos**:
-  - id (PK)
-  - id_item (FK)
-  - is_broken
-
-### Ring_Effect
-
-- **Atributos**:
-  - id (PK)
-  - id_ring (FK)
-  - attribute
-  - value
-
-### Ember
-
-- **Atributos**:
-  - id (PK)
-  - id_item (FK)
-  - blacksmith
-
-### Projectile
-
-- **Atributos**:
-  - id (PK)
-  - id_item (FK)
-  - projectile_type
-  - projectile_damage
-  - projectile_effect
-
-### KeyItem
-
-- **Atributos**:
-  - id (PK)
-  - id_item (FK)
-  - is_used
-
-### KeyBonfireItem
-
-- **Atributos**:
-  - id (PK)
-  - id_item (FK)
-  - active
-
-### Inventory
-
-- **Atributos**:
-  - id (PK)
-  - id_creature (FK)
-  - id_item (FK)
-  - quantity
-
-### Class
-
-- **Atributos**:
-  - id (PK)
-  - class_name
-  - base_level
-  - base_vit
-  - base_dex
-  - base_att
-  - base_end
-  - base_str
-  - base_int
-  - base_fai
-
-### EquipmentRequirement
-
-- **Atributos**:
-  - id_item (PK, FK)
-  - min_value
-  - stat_type
-
-### Quest
-
-- **Atributos**:
-  - id (PK)
-  - id_creature (FK)
-  - quest_name
-
-### QuestInstance
-
-- **Atributos**:
-  - id (PK)
-  - id_creature (FK)
-  - id_quest (FK)
-  - state
-  - count
-  - dialogue
+# Modelo Entidade-Relacionamento (MER)
 
 ## Relacionamentos
 
-- **PC e Creature**: Um para Um (Cada PC é um Creature).
-- **NPC e Creature**: Um para Um (Cada NPC é um Creature).
-- **Region e RegionCoordinate**: Um para Muitos (Cada região pode ter múltiplas coordenadas).
-- **RegionCoordinate e RegionLink**: Muitos para Muitos (Coordenadas podem estar ligadas a outras coordenadas).
-- **Item e UpgradeType, Armor, Weapon, Magic, Consumable, Ore, Ring, Ember, Projectile, KeyItem, KeyBonfireItem**: Um para Um (Cada item pode ser um UpgradeType, Armor, Weapon, Magic, etc.).
-- **Magic e Magic_Effect**: Um para Muitos (Cada magia pode ter múltiplos efeitos).
-- **Magic_Effect e AttributeEffect**: Um para Muitos (Cada efeito mágico pode ter múltiplos efeitos de atributo).
-- **Inventory e Creature, Item**: Muitos para Muitos (Cada criatura pode ter múltiplos itens e cada item pode estar em múltiplas criaturas).
-- **Class e PC**: Um para Muitos (Cada classe pode ter múltiplos PCs).
-- **Quest e Creature**: Muitos para Muitos (Cada criatura pode ter múltiplas quests e cada quest pode estar associada a múltiplas criaturas).
-- **QuestInstance e Quest, Creature**: Muitos para Um (Cada instância de quest é associada a uma quest e a uma criatura).
+- **Personagem**
+  - **1:N** com **PC** (`Personagem.id` → `PC.personagem_id`)
+  - **1:N** com **NPC** (`Personagem.id` → `NPC.personagem_id`)
+  - **1:N** com **Chest** (`Personagem.id` → `Chest.personagem_id`)
+  - **1:N** com **Quest** (`Personagem.id` → `Quest.personagem_id`)
+  - **1:N** com **QuestInstance** (`Personagem.id` → `QuestInstance.personagem_id`)
+  - **1:N** com **Inventory** (`Personagem.id` → `Inventory.personagem_id`)
+
+- **PC**
+  - **N:1** com **Class** (`PC.class_id` → `Class.id`)
+  - **N:1** com **RegionGraphNode** (`PC.position` → `RegionGraphNode.position`)
+
+- **NPC**
+  - **N:1** com **RegionGraphNode** (`NPC.position` → `RegionGraphNode.position`)
+
+- **Chest**
+  - **N:1** com **Item** (`Chest.item_id` → `Item.id`)
+  - **N:1** com **RegionGraphNode** (`Chest.position` → `RegionGraphNode.position`)
+
+- **RegionGraphNode**
+  - **1:N** com **RegionGraphEdge** (`RegionGraphNode.position` → `RegionGraphEdge.origin_node`)
+  - **1:N** com **RegionGraphEdge** (`RegionGraphNode.position` → `RegionGraphEdge.destination_node`)
+  - **1:N** com **Bonfire** (`RegionGraphNode.position` → `Bonfire.region_graph_node_position`)
+
+- **Item**
+  - **1:N** com **Armor** (`Item.id` → `Armor.item_id`)
+  - **1:N** com **Weapon** (`Item.id` → `Weapon.item_id`)
+  - **1:N** com **Consumable** (`Item.id` → `Consumable.item_id`)
+  - **1:N** com **Ore** (`Item.id` → `Ore.item_id`)
+  - **1:N** com **Magic** (`Item.id` → `Magic.item_id`)
+  - **1:N** com **Ring** (`Item.id` → `Ring.item_id`)
+  - **1:N** com **Ember** (`Item.id` → `Ember.item_id`)
+  - **1:N** com **Projectile** (`Item.id` → `Projectile.item_id`)
+  - **1:N** com **KeyItem** (`Item.id` → `KeyItem.item_id`)
+  - **1:N** com **KeyBonfireItem** (`Item.id` → `KeyBonfireItem.item_id`)
+  - **1:N** com **Soul** (`Item.id` → `Soul.item_id`)
+
+- **Magic**
+  - **1:N** com **MagicEffect** (`Magic.id` → `MagicEffect.magic_id`)
+
+- **MagicEffect**
+  - **1:N** com **AttributeEffect** (`MagicEffect.id` → `AttributeEffect.magic_effect_id`)
+
+- **Ring**
+  - **1:N** com **RingEffect** (`Ring.id` → `RingEffect.ring_id`)
+
+- **InventoryItem**
+  - **N:1** com **Inventory** (`InventoryItem.inventory_id` → `Inventory.id`)
+  - **N:1** com **Item** (`InventoryItem.item_instance_id` → `Item.id`)
+
+- **Quest**
+  - **N:1** com **Personagem** (`Quest.personagem_id` → `Personagem.id`)
+
+- **QuestInstance**
+  - **N:1** com **Quest** (`QuestInstance.quest_id` → `Quest.id`)
+  - **N:1** com **Personagem** (`QuestInstance.personagem_id` → `Personagem.id`)
+
+- **Bonfire**
+  - **N:1** com **RegionGraphNode** (`Bonfire.region_graph_node_position` → `RegionGraphNode.position`)
