@@ -18,4 +18,4 @@ Repositório dedicado ao desenvolvimento do projeto de Sistema de Banco de Dados
 - [DDL](https://github.com/SBD1/2024.1-Dark-Souls-Prepare-to-Die/blob/main/db/ddl.sql)
 - [DML](https://github.com/SBD1/2024.1-Dark-Souls-Prepare-to-Die/blob/main/db/dml.sql)
 - [DQL](https://github.com/SBD1/2024.1-Dark-Souls-Prepare-to-Die/blob/main/db/dql.sql)
-- [Apresentação Módulo 2](youtube.com)
+- [Apresentação Módulo 2](https://youtu.be/WJRfOAlR08Y)
