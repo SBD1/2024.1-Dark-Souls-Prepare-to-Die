@@ -8,6 +8,72 @@ CREATE TABLE Personagem (
     poise_resistance INT NOT NULL
 );
 
+-- Tabela Region
+CREATE TABLE Region (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    description TEXT
+);
+
+-- Tabela RegionGraphNode
+CREATE TABLE RegionGraphNode (
+    position SERIAL PRIMARY KEY,
+    region_description TEXT,
+    region_id INT REFERENCES Region(id) ON DELETE CASCADE
+);
+
+-- Tabela Class
+CREATE TABLE Class (
+    id SERIAL PRIMARY KEY,
+    personagem_id INT REFERENCES Personagem(id) ON DELETE CASCADE,
+    nome VARCHAR(100) NOT NULL,
+    base_level INT,
+    base_vit INT,
+    base_dex INT,
+    base_att INT,
+    base_end INT,
+    base_str INT,
+    base_int INT,
+    base_fai INT
+);
+
+-- Tabela Item
+CREATE TABLE Item (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    equip BOOLEAN,
+    tipo VARCHAR(50) NOT NULL,
+    soul_valor INT,
+    can_sell BOOLEAN
+);
+
+-- Tabela Inventory
+CREATE TABLE Inventory (
+    id SERIAL PRIMARY KEY,
+    personagem_id INT REFERENCES Personagem(id) ON DELETE CASCADE
+);
+
+-- Tabela InventoryItem
+CREATE TABLE InventoryItem (
+    id SERIAL PRIMARY KEY,
+    inventory_id INT REFERENCES Inventory(id) ON DELETE CASCADE,
+    item_instance_id INT,
+    item_tipo VARCHAR(50),
+    quantity INT,
+    UNIQUE (inventory_id, item_instance_id, item_tipo)
+);
+
+-- Tabela Bonfire
+CREATE TABLE Bonfire (
+    id SERIAL PRIMARY KEY,
+    kindle_level INT NOT NULL,
+    bonfire_active BOOLEAN NOT NULL,
+    warp_ok BOOLEAN NOT NULL,
+    bonfire_reset_status BOOLEAN NOT NULL,
+    region_graph_node_position INT UNIQUE, -- FK para RegionGraphNode
+    FOREIGN KEY (region_graph_node_position) REFERENCES RegionGraphNode(position) ON DELETE SET NULL
+);
+
 -- Tabela PC
 CREATE TABLE PC (
     id SERIAL PRIMARY KEY,
@@ -52,35 +118,11 @@ CREATE TABLE Chest (
     position INT REFERENCES RegionGraphNode(position)
 );
 
--- Tabela Region
-CREATE TABLE Region (
-    id SERIAL PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    description TEXT
-);
-
--- Tabela RegionGraphNode
-CREATE TABLE RegionGraphNode (
-    position SERIAL PRIMARY KEY,
-    region_description TEXT,
-    region_id INT REFERENCES Region(id) ON DELETE CASCADE
-);
-
 -- Tabela RegionGraphEdge
 CREATE TABLE RegionGraphEdge (
     edge SERIAL PRIMARY KEY,
     origin_node INT REFERENCES RegionGraphNode(position) ON DELETE CASCADE,
     destination_node INT REFERENCES RegionGraphNode(position) ON DELETE CASCADE
-);
-
--- Tabela Item
-CREATE TABLE Item (
-    id SERIAL PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    equip BOOLEAN,
-    tipo VARCHAR(50) NOT NULL,
-    soul_valor INT,
-    can_sell BOOLEAN
 );
 
 -- Tabelas específicas de Item
@@ -209,36 +251,6 @@ CREATE TABLE SoulBoss (
     boss VARCHAR(100)
 );
 
--- Tabela InventoryItem
-CREATE TABLE InventoryItem (
-    id SERIAL PRIMARY KEY,
-    inventory_id INT REFERENCES Inventory(id) ON DELETE CASCADE,
-    item_instance_id INT,
-    item_tipo VARCHAR(50),
-    quantity INT,
-    UNIQUE (inventory_id, item_instance_id, item_tipo)
-);
-
--- Tabela Inventory
-CREATE TABLE Inventory (
-    id SERIAL PRIMARY KEY,
-    personagem_id INT REFERENCES Personagem(id) ON DELETE CASCADE
-);
-
--- Tabela Class
-CREATE TABLE Class (
-    id SERIAL PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    base_level INT,
-    base_vit INT,
-    base_dex INT,
-    base_att INT,
-    base_end INT,
-    base_str INT,
-    base_int INT,
-    base_fai INT
-);
-
 -- Tabela EquipmentRequirement
 CREATE TABLE EquipmentRequirement (
     item_id INT REFERENCES Item(id) ON DELETE CASCADE,
@@ -262,15 +274,4 @@ CREATE TABLE QuestInstance (
     quest_state VARCHAR(50),
     count INT,
     dialogue TEXT
-);
-
--- Tabela Bonfire
-CREATE TABLE Bonfire (
-    id SERIAL PRIMARY KEY,
-    kindle_level INT NOT NULL,
-    bonfire_active BOOLEAN NOT NULL,
-    warp_ok BOOLEAN NOT NULL,
-    bonfire_reset_status BOOLEAN NOT NULL,
-    region_graph_node_position INT UNIQUE, -- FK para RegionGraphNode
-    FOREIGN KEY (region_graph_node_position) REFERENCES RegionGraphNode(position) ON DELETE SET NULL
 );
