@@ -23,4 +23,5 @@ Repositório dedicado ao desenvolvimento do projeto de Sistema de Banco de Dados
 ## **Módulo 3**
 
 - [Jogo](main.py)
-- [Apresentação]()
+- [Apresentação](https://youtu.be/BtRMWgBu4So)
+- [Requisitos para rodar](https://github.com/SBD1/2024.1-Dark-Souls-Prepare-to-Die/blob/main/docs/requisitos.md)
