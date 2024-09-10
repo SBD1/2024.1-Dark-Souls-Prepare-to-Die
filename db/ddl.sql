@@ -17,7 +17,7 @@ CREATE TABLE Region (
 
 -- Tabela RegionGraphNode
 CREATE TABLE RegionGraphNode (
-    position SERIAL PRIMARY KEY,
+    position INTEGER PRIMARY KEY, 
     region_description TEXT,
     region_id INT REFERENCES Region(id) ON DELETE CASCADE
 );
@@ -25,7 +25,6 @@ CREATE TABLE RegionGraphNode (
 -- Tabela Class
 CREATE TABLE Class (
     id SERIAL PRIMARY KEY,
-    personagem_id INT REFERENCES Personagem(id) ON DELETE CASCADE,
     nome VARCHAR(100) NOT NULL,
     base_level INT,
     base_vit INT,
@@ -70,7 +69,7 @@ CREATE TABLE Bonfire (
     bonfire_active BOOLEAN NOT NULL,
     warp_ok BOOLEAN NOT NULL,
     bonfire_reset_status BOOLEAN NOT NULL,
-    region_graph_node_position INT UNIQUE, -- FK para RegionGraphNode
+    region_graph_node_position INT,
     FOREIGN KEY (region_graph_node_position) REFERENCES RegionGraphNode(position) ON DELETE SET NULL
 );
 
